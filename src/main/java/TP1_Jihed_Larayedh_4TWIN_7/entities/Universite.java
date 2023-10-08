@@ -2,6 +2,7 @@ package TP1_Jihed_Larayedh_4TWIN_7.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,8 @@ public class Universite {
     private long idUniversite;
     private String nomUniversite;
     private String adresse;
+    @OneToOne
+    private Foyer Foyer;
 
 
 }
