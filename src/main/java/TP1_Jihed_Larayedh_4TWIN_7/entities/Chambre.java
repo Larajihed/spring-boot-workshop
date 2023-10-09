@@ -1,26 +1,36 @@
 package TP1_Jihed_Larayedh_4TWIN_7.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class Chambre {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Chambre implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idChambre;
-    private long numeroChambre;
-    private TypeChambre TypeC;
+    @Setter(AccessLevel.NONE)
+    Long idChambre;
+
+    Long numeroChambre;
+
+    @Enumerated(EnumType.STRING)
+    TypeChambre typeC;
+
+
     @ManyToOne
     @JoinColumn(name = "idBloc")
     Bloc bloc;
 
     @OneToMany
-    private Set<Reservation> reservations;
-
-
+    Set<Reservation> reservations;
 }

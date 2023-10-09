@@ -1,28 +1,37 @@
 package TP1_Jihed_Larayedh_4TWIN_7.entities;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import lombok.Getter;
-import lombok.Setter;
-
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class Etudiant {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Etudiant implements Serializable {
+
     @Id
-    private long idEtudiant;
-    private String nomEt;
-    private String prenomEt;
-    private long cin;
-    private String ecole;
-    private Date dateNaissance;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    Long idEtudiant;
+
+    String nomEt;
+    String prenomEt;
+    Long cin;
+    String ecole;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    Date dateNaissance;
+
 
     @ManyToMany(mappedBy="etudiants")
-    private Set<Reservation> reservations;
+    Set<Reservation> reservations;
+
 }
-
-

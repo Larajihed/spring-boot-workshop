@@ -9,18 +9,35 @@ import lombok.Setter;
 
 import java.util.Set;
 
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.io.Serializable;
+import java.util.Set;
+
+@Entity
 @Getter
 @Setter
-@Entity
-public class Foyer {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Foyer implements Serializable {
+
     @Id
-    private int idFoyer;
-    private String nomFoyer;
-    private long capaciteFoter;
-    @OneToOne(mappedBy = "Foyer")
-    private Universite universite;
-    // SI MAX = MANY then use sets else use Attribute
-    @OneToMany
-    private Set<Bloc> Blocs;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    Long idFoyer;
+
+    String nomFoyer;
+    Long capaciteFoyer;
+
+
+    @OneToOne(mappedBy = "foyer")
+    Universite universite;
+
+    @OneToMany(mappedBy = "foyer")
+    Set<Bloc> blocs;
 
 }

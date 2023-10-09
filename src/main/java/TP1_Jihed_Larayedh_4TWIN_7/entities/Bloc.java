@@ -1,23 +1,35 @@
 package TP1_Jihed_Larayedh_4TWIN_7.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class Bloc {
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Bloc implements Serializable {
+
     @Id
-    private long idBloc;
-    private String nomBloc;
-    private long capaciteBloc;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    Long idBloc;
+
+    String nomBloc;
+    Long capaciteBloc;
+
+
+    @ManyToOne
+    @JoinColumn(name = "idFoyer")
+    Foyer foyer;
 
     @OneToMany(mappedBy = "bloc")
-    private Set<Chambre> chambres;
-
-
+    Set<Chambre> chambres;
 
 }
